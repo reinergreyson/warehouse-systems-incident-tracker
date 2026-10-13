@@ -8,7 +8,21 @@ A browser-based incident management application designed to demonstrate warehous
 
 The Warehouse Systems Incident Tracker helps users record warehouse technology issues, monitor incident status, filter and search records, and review key operational metrics.
 
-The project simulates a simple workflow for tracking technology disruptions that can affect warehouse operations, inventory accuracy, and system availability.
+The project simulates a practical workflow for tracking technology disruptions that can affect warehouse operations, inventory accuracy, and system availability.
+
+## Screenshots
+
+### Main Dashboard
+
+The dashboard provides an overview of warehouse system incidents and key operational performance indicators (KPIs).
+
+![Warehouse Systems Incident Tracker Main Dashboard](SystemTracker.png)
+
+### Incident Records
+
+The incident table allows users to review recorded issues, monitor severity, and track incident status.
+
+![Warehouse Systems Incident Tracker Incident Records](TrackerRecords.png)
 
 ## Features
 
@@ -66,6 +80,6 @@ The application is not a production incident-management system and does not prov
 
 ## Author
 
-Brittany Curtis
+**Brittany Curtis**
 
-Explore the live demo through the link at the top of this README.
+Explore the [live demo](https://reinergreyson.github.io/warehouse-systems-incident-tracker/) to try the Warehouse Systems Incident Tracker.

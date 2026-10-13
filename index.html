@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Warehouse Systems Incident Tracker portfolio project.">
+  <title>Warehouse Systems Incident Tracker</title>
+
+  <style>
+    :root {
+      --navy: #142b49;
+      --blue: #1d4f91;
+      --yellow: #ffc220;
+      --background: #f3f6fa;
+      --white: #ffffff;
+      --text: #243247;
+      --muted: #68778b;
+      --border: #dce4ee;
+      --red: #b42318;
+      --green: #167647;
+      --orange: #a65c00;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--background);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    header {
+      background: var(--navy);
+      color: var(--white);
+      padding: 25px 5%;
+      border-bottom: 5px solid var(--yellow);
+    }
+
+    .header-content {
+      max-width: 1400px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--yellow);
+      color: var(--navy);
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      font-size: 25px;
+      font-weight: bold;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(23px, 3vw, 34px);
+    }
+
+    .subtitle {
+      margin: 5px 0 0;
+      color: #d9e4f2;
+      font-size: 14px;
+    }
+
+    .demo-label {
+      background: #24446b;
+      border: 1px solid #59779c;
+      padding: 8px 12px;
+      border-radius: 7px;
+      font-size: 12px;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+    }
+
+    main {
+      max-width: 1400px;
+      margin: 28px auto;
+      padding: 0 5%;
+    }
+
+    .section-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+
+    h2 {
+      color: var(--navy);
+      margin: 0;
+      font-size: 22px;
+    }
+
+    .muted {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 17px;
+      margin-bottom: 30px;
+    }
+
+    .kpi-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 21px;
+      box-shadow: 0 3px 12px rgba(20, 43, 73, 0.04);
+      border-top: 4px solid var(--blue);
+    }
+
+    .kpi-card.warning {
+      border-top-color: var(--yellow);
+    }
+
+    .kpi-card.danger {
+      border-top-color: var(--red);
+    }
+
+    .kpi-card.success {
+      border-top-color: var(--green);
+    }
+
+    .kpi-label {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .kpi-value {
+      color: var(--navy);
+      font-size: 34px;
+      font-weight: bold;
+      margin: 7px 0 2px;
+    }
+
+    .panel {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 23px;
+      margin-bottom: 25px;
+      box-shadow: 0 3px 12px rgba(20, 43, 73, 0.04);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 17px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      font-size: 13px;
+      font-weight: bold;
+      color: var(--navy);
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 11px 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      background: white;
+      color: var(--text);
+      font: inherit;
+      font-size: 14px;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      outline: 2px solid #8db9ee;
+      border-color: var(--blue);
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    .button-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    button {
+      border: 0;
+      border-radius: 7px;
+      padding: 11px 16px;
+      font: inherit;
+      font-size: 13px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+
+    button:hover {
+      opacity: 0.88;
+    }
+
+    button:focus-visible {
+      outline: 3px solid #8db9ee;
+      outline-offset: 2px;
+    }
+
+    .primary-button {
+      background: var(--navy);
+      color: white;
+    }
+
+    .secondary-button {
+      background: #e7edf5;
+      color: var(--navy);
+    }
+
+    .danger-button {
+      background: #fce8e6;
+      color: var(--red);
+    }
+
+    .filters {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr auto;
+      gap: 12px;
+      margin: 18px 0;
+      align-items: end;
+    }
+
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+    }
+
+    table {
+      width: 100%;
+      min-width: 950px;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    th,
+    td {
+      text-align: left;
+      padding: 14px 12px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+
+    th {
+      background: #edf2f8;
+      color: var(--navy);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.35px;
+    }
+
+    tbody tr:hover {
+      background: #f8fafc;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .incident-title {
+      font-weight: bold;
+      color: var(--navy);
+      min-width: 150px;
+    }
+
+    .incident-description {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 12px;
+      max-width: 260px;
+      overflow-wrap: anywhere;
+    }
+
+    .status-badge,
+    .priority-badge {
+      display: inline-block;
+      padding: 5px 8px;
+      border-radius: 5px;
+      font-size: 11px;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    .status-open {
+      background: #fce8e6;
+      color: #9f2018;
+    }
+
+    .status-progress {
+      background: #fff1cc;
+      color: #805400;
+    }
+
+    .status-resolved {
+      background: #dff5e8;
+      color: #17663d;
+    }
+
+    .priority-critical {
+      background: #fce8e6;
+      color: #9f2018;
+    }
+
+    .priority-high {
+      background: #ffead5;
+      color: #914400;
+    }
+
+    .priority-medium {
+      background: #fff1cc;
+      color: #805400;
+    }
+
+    .priority-low {
+      background: #e5edf8;
+      color: #31547c;
+    }
+
+    .table-select {
+      min-width: 125px;
+      padding: 8px;
+      font-size: 12px;
+    }
+
+    .delete-button {
+      padding: 8px 10px;
+      font-size: 12px;
+    }
+
+    .empty-state {
+      padding: 35px;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    .table-footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding-top: 14px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .notice {
+      background: #fff8df;
+      border: 1px solid #f0d989;
+      color: #604b13;
+      border-radius: 8px;
+      padding: 13px 15px;
+      font-size: 12px;
+      margin-bottom: 22px;
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+      padding: 25px 5%;
+    }
+
+    @media (max-width: 1000px) {
+      .kpi-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .filters {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .filters .search-field {
+        grid-column: 1 / -1;
+      }
+
+      .form-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 600px) {
+      header {
+        padding: 22px 5%;
+      }
+
+      main {
+        margin-top: 20px;
+      }
+
+      .kpi-grid,
+      .form-grid,
+      .filters {
+        grid-template-columns: 1fr;
+      }
+
+      .filters .search-field,
+      .field.full {
+        grid-column: auto;
+      }
+
+      .panel {
+        padding: 17px;
+      }
+
+      .kpi-card {
+        padding: 16px;
+      }
+
+      .kpi-value {
+        font-size: 29px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="header-content">
+      <div class="brand">
+        <div class="brand-icon" aria-hidden="true">!</div>
+        <div>
+          <h1>Warehouse Systems Incident Tracker</h1>
+          <p class="subtitle">Operations support · Incident management · Resolution tracking</p>
+        </div>
+      </div>
+      <div class="demo-label">PORTFOLIO DEMO · FICTIONAL DATA</div>
+    </div>
+  </header>
+
+  <main>
+    <div class="notice">
+      <strong>Demo environment:</strong> All incidents shown here are fictional examples
+      created for a portfolio project. Data is saved in this browser only and is not
+      connected to a real warehouse system.
+    </div>
+
+    <section aria-labelledby="overview-heading">
+      <div class="section-heading">
+        <div>
+          <h2 id="overview-heading">Incident Overview</h2>
+          <div class="muted">A quick view of current support activity</div>
+        </div>
+        <button class="secondary-button" id="export-button" type="button">
+          Export CSV
+        </button>
+      </div>
+
+      <div class="kpi-grid" aria-live="polite">
+        <article class="kpi-card">
+          <div class="kpi-label">TOTAL INCIDENTS</div>
+          <div class="kpi-value" id="total-kpi">0</div>
+          <div class="muted">All recorded incidents</div>
+        </article>
+
+        <article class="kpi-card danger">
+          <div class="kpi-label">OPEN INCIDENTS</div>
+          <div class="kpi-value" id="open-kpi">0</div>
+          <div class="muted">Awaiting action</div>
+        </article>
+
+        <article class="kpi-card warning">
+          <div class="kpi-label">HIGH / CRITICAL PRIORITY</div>
+          <div class="kpi-value" id="high-kpi">0</div>
+          <div class="muted">Requires attention</div>
+        </article>
+
+        <article class="kpi-card success">
+          <div class="kpi-label">RESOLVED INCIDENTS</div>
+          <div class="kpi-value" id="resolved-kpi">0</div>
+          <div class="muted">Marked as resolved</div>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel" aria-labelledby="add-heading">
+      <div class="section-heading">
+        <div>
+          <h2 id="add-heading">Log a New Incident</h2>
+          <div class="muted">Record an issue for review and follow-up.</div>
+        </div>
+      </div>
+
+      <form id="incident-form">
+        <div class="form-grid">
+          <div class="field">
+            <label for="incident-title">Incident Title *</label>
+            <input id="incident-title" name="title" maxlength="100"
+              placeholder="e.g., Scanner connection failure" required>
+          </div>
+
+          <div class="field">
+            <label for="department">Department *</label>
+            <select id="department" name="department" required>
+              <option value="">Select department</option>
+              <option>Receiving</option>
+              <option>Inventory</option>
+              <option>Picking</option>
+              <option>Packing</option>
+              <option>Shipping</option>
+              <option>IT Support</option>
+              <option>Other</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="priority">Priority *</label>
+            <select id="priority" name="priority" required>
+              <option value="">Select priority</option>
+              <option>Critical</option>
+              <option>High</option>
+              <option>Medium</option>
+              <option>Low</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="incident-date">Date Reported *</label>
+            <input id="incident-date" name="date" type="date" required>
+          </div>
+
+          <div class="field">
+            <label for="initial-status">Initial Status</label>
+            <select id="initial-status" name="status">
+              <option>Open</option>
+              <option>In Progress</option>
+              <option>Resolved</option>
+            </select>
+          </div>
+
+          <div class="field full">
+            <label for="description">Incident Description *</label>
+            <textarea id="description" name="description" maxlength="1000"
+              placeholder="Describe the issue, its operational impact, and any troubleshooting completed."
+              required></textarea>
+          </div>
+        </div>
+
+        <div class="button-row">
+          <button class="primary-button" type="submit">+ Add Incident</button>
+          <button class="secondary-button" id="clear-form" type="reset">Clear Form</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="panel" aria-labelledby="list-heading">
+      <div class="section-heading">
+        <div>
+          <h2 id="list-heading">Incident Register</h2>
+          <div class="muted">Search incidents, apply filters, and update their status.</div>
+        </div>
+      </div>
+
+      <div class="filters">
+        <div class="field search-field">
+          <label for="search">Search incidents</label>
+          <input id="search" type="search" placeholder="Search title, ID, or description">
+        </div>
+
+        <div class="field">
+          <label for="filter-department">Department</label>
+          <select id="filter-department">
+            <option value="">All Departments</option>
+            <option>Receiving</option>
+            <option>Inventory</option>
+            <option>Picking</option>
+            <option>Packing</option>
+            <option>Shipping</option>
+            <option>IT Support</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="filter-priority">Priority</label>
+          <select id="filter-priority">
+            <option value="">All Priorities</option>
+            <option>Critical</option>
+            <option>High</option>
+            <option>Medium</option>
+            <option>Low</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="filter-status">Status</label>
+          <select id="filter-status">
+            <option value="">All Statuses</option>
+            <option>Open</option>
+            <option>In Progress</option>
+            <option>Resolved</option>
+          </select>
+        </div>
+
+        <button class="secondary-button" id="reset-filters" type="button">Reset Filters</button>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Incident</th>
+              <th>Department</th>
+              <th>Date</th>
+              <th>Priority</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="incident-table-body"></tbody>
+        </table>
+      </div>
+
+      <div class="table-footer">
+        <span id="result-count" aria-live="polite">Showing 0 incidents</span>
+        <span>Tip: update a status as work progresses.</span>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Warehouse Systems Incident Tracker · Portfolio project ·
+    Fictional data for demonstration purposes
+  </footer>
+
+  <script>
+    "use strict";
+
+    const STORAGE_KEY = "warehouseSystemsIncidentTracker.v1";
+
+    const sampleIncidents = [
+      {
+        id: "INC-1001",
+        title: "Handheld scanner connectivity",
+        department: "Picking",
+        date: "2026-10-10",
+        priority: "High",
+        status: "Open",
+        description: "A handheld scanner intermittently loses its wireless connection during order picking."
+      },
+      {
+        id: "INC-1002",
+        title: "Inventory count mismatch",
+        department: "Inventory",
+        date: "2026-10-10",
+        priority: "Medium",
+        status: "In Progress",
+        description: "A sample inventory count differs from the quantity shown in the warehouse system."
+      },
+      {
+        id: "INC-1003",
+        title: "Label printer unavailable",
+        department: "Shipping",
+        date: "2026-10-11",
+        priority: "Critical",
+        status: "Open",
+        description: "A shipping label printer is unavailable, delaying the sample dispatch workflow."
+      },
+      {
+        id: "INC-1004",
+        title: "Packing station login error",
+        department: "Packing",
+        date: "2026-10-11",
+        priority: "Low",
+        status: "Resolved",
+        description: "A simulated login issue was resolved after the workstation session was restarted."
+      },
+      {
+        id: "INC-1005",
+        title: "Receiving data sync delay",
+        department: "Receiving",
+        date: "2026-10-12",
+        priority: "High",
+        status: "In Progress",
+        description: "Newly received sample inventory is taking longer than expected to appear in the system."
+      }
+    ];
+
+    let incidents = loadIncidents();
+
+    const form = document.getElementById("incident-form");
+    const tableBody = document.getElementById("incident-table-body");
+
+    function loadIncidents() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved !== null) {
+          const parsed = JSON.parse(saved);
+          if (Array.isArray(parsed)) {
+            return parsed;
+          }
+        }
+      } catch (error) {
+        console.warn("Could not load saved incidents.", error);
+      }
+
+      return sampleIncidents.map(incident => ({ ...incident }));
+    }
+
+    function saveIncidents() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(incidents));
+        return true;
+      } catch (error) {
+        alert("The browser could not save the changes. Check browser storage settings.");
+        console.error("Could not save incidents.", error);
+        return false;
+      }
+    }
+
+    function nextIncidentId() {
+      const highest = incidents.reduce((max, incident) => {
+        const match = /^INC-(\d+)$/.exec(incident.id);
+        return match ? Math.max(max, Number(match[1])) : max;
+      }, 1000);
+
+      return "INC-" + String(highest + 1);
+    }
+
+    function escapeHTML(value) {
+      return String(value).replace(/[&<>"']/g, character => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+      })[character]);
+    }
+
+    function statusClass(status) {
+      if (status === "Open") return "status-open";
+      if (status === "In Progress") return "status-progress";
+      return "status-resolved";
+    }
+
+    function priorityClass(priority) {
+      return "priority-" + priority.toLowerCase();
+    }
+
+    function updateKPIs() {
+      document.getElementById("total-kpi").textContent = incidents.length;
+
+      document.getElementById("open-kpi").textContent =
+        incidents.filter(incident => incident.status === "Open").length;
+
+      document.getElementById("high-kpi").textContent =
+        incidents.filter(incident =>
+          incident.priority === "High" || incident.priority === "Critical"
+        ).length;
+
+      document.getElementById("resolved-kpi").textContent =
+        incidents.filter(incident => incident.status === "Resolved").length;
+    }
+
+    function getFilteredIncidents() {
+      const search = document.getElementById("search").value.trim().toLowerCase();
+      const department = document.getElementById("filter-department").value;
+      const priority = document.getElementById("filter-priority").value;
+      const status = document.getElementById("filter-status").value;
+
+      return incidents.filter(incident => {
+        const searchable = [
+          incident.id,
+          incident.title,
+          incident.description,
+          incident.department
+        ].join(" ").toLowerCase();
+
+        return (!search || searchable.includes(search)) &&
+          (!department || incident.department === department) &&
+          (!priority || incident.priority === priority) &&
+          (!status || incident.status === status);
+      }).sort((a, b) => b.date.localeCompare(a.date) || b.id.localeCompare(a.id));
+    }
+
+    function renderTable() {
+      const filtered = getFilteredIncidents();
+
+      if (filtered.length === 0) {
+        tableBody.innerHTML = `
+          <tr>
+            <td colspan="6" class="empty-state">
+              No incidents match your search or filters.
+            </td>
+          </tr>`;
+      } else {
+        tableBody.innerHTML = filtered.map(incident => `
+          <tr>
+            <td>
+              <div class="incident-title">${escapeHTML(incident.id)} · ${escapeHTML(incident.title)}</div>
+              <span class="incident-description">${escapeHTML(incident.description)}</span>
+            </td>
+            <td>${escapeHTML(incident.department)}</td>
+            <td>${escapeHTML(incident.date)}</td>
+            <td>
+              <span class="priority-badge ${priorityClass(incident.priority)}">
+                ${escapeHTML(incident.priority)}
+              </span>
+            </td>
+            <td>
+              <label class="muted" for="status-${escapeHTML(incident.id)}">Status</label>
+              <select class="table-select status-select"
+                id="status-${escapeHTML(incident.id)}"
+                data-id="${escapeHTML(incident.id)}"
+                aria-label="Update status for ${escapeHTML(incident.id)}">
+                ${["Open", "In Progress", "Resolved"].map(status => `
+                  <option value="${status}" ${incident.status === status ? "selected" : ""}>
+                    ${status}
+                  </option>`).join("")}
+              </select>
+              <span class="status-badge ${statusClass(incident.status)}">
+                ${escapeHTML(incident.status)}
+              </span>
+            </td>
+            <td>
+              <button class="danger-button delete-button"
+                type="button" data-delete-id="${escapeHTML(incident.id)}"
+                aria-label="Delete ${escapeHTML(incident.id)}">
+                Delete
+              </button>
+            </td>
+          </tr>`).join("");
+      }
+
+      document.getElementById("result-count").textContent =
+        `Showing ${filtered.length} of ${incidents.length} incidents`;
+
+      updateKPIs();
+    }
+
+    function refresh() {
+      renderTable();
+    }
+
+    form.addEventListener("submit", event => {
+      event.preventDefault();
+
+      const title = document.getElementById("incident-title").value.trim();
+      const department = document.getElementById("department").value;
+      const priority = document.getElementById("priority").value;
+      const date = document.getElementById("incident-date").value;
+      const status = document.getElementById("initial-status").value;
+      const description = document.getElementById("description").value.trim();
+
+      if (!title || !department || !priority || !date || !description) {
+        alert("Please complete all required fields.");
+        return;
+      }
+
+      const incident = {
+        id: nextIncidentId(),
+        title,
+        department,
+        date,
+        priority,
+        status,
+        description
+      };
+
+      incidents.unshift(incident);
+
+      if (!saveIncidents()) {
+        incidents.shift();
+        return;
+      }
+
+      form.reset();
+      document.getElementById("incident-date").value = getLocalDate();
+      refresh();
+      alert(`Incident ${incident.id} was added successfully.`);
+    });
+
+    tableBody.addEventListener("change", event => {
+      if (!event.target.matches(".status-select")) return;
+
+      const id = event.target.dataset.id;
+      const incident = incidents.find(item => item.id === id);
+      if (!incident) return;
+
+      const previousStatus = incident.status;
+      incident.status = event.target.value;
+
+      if (!saveIncidents()) {
+        incident.status = previousStatus;
+      }
+
+      refresh();
+    });
+
+    tableBody.addEventListener("click", event => {
+      const button = event.target.closest("[data-delete-id]");
+      if (!button) return;
+
+      const id = button.dataset.deleteId;
+      const incident = incidents.find(item => item.id === id);
+      if (!incident) return;
+
+      if (!confirm(`Delete ${id} — ${incident.title}? This cannot be undone.`)) {
+        return;
+      }
+
+      const previous = incidents;
+      incidents = incidents.filter(item => item.id !== id);
+
+      if (!saveIncidents()) {
+        incidents = previous;
+      }
+
+      refresh();
+    });
+
+    ["search", "filter-department", "filter-priority", "filter-status"]
+      .forEach(id => {
+        document.getElementById(id).addEventListener("input", renderTable);
+        document.getElementById(id).addEventListener("change", renderTable);
+      });
+
+    document.getElementById("reset-filters").addEventListener("click", () => {
+      document.getElementById("search").value = "";
+      document.getElementById("filter-department").value = "";
+      document.getElementById("filter-priority").value = "";
+      document.getElementById("filter-status").value = "";
+      refresh();
+    });
+
+    document.getElementById("export-button").addEventListener("click", () => {
+      const headers = [
+        "Incident ID", "Title", "Department", "Date",
+        "Priority", "Status", "Description"
+      ];
+
+      const rows = getFilteredIncidents().map(incident => [
+        incident.id,
+        incident.title,
+        incident.department,
+        incident.date,
+        incident.priority,
+        incident.status,
+        incident.description
+      ]);
+
+      const csvEscape = value =>
+        '"' + String(value).replace(/"/g, '""') + '"';
+
+      const csv = [headers, ...rows]
+        .map(row => row.map(csvEscape).join(","))
+        .join("\r\n");
+
+      const blob = new Blob(["\uFEFF" + csv], {
+        type: "text/csv;charset=utf-8;"
+      });
+
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "warehouse-incidents.csv";
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
+    });
+
+    document.getElementById("clear-form").addEventListener("click", () => {
+      setTimeout(() => {
+        document.getElementById("incident-date").value = getLocalDate();
+      }, 0);
+    });
+
+    function getLocalDate() {
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = String(now.getMonth() + 1).padStart(2, "0");
+      const day = String(now.getDate()).padStart(2, "0");
+      return `${year}-${month}-${day}`;
+    }
+
+    document.getElementById("incident-date").value = getLocalDate();
+
+    refresh();
+  </script>
+</body>
+</html>
